@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <div>
-      <footer className="p-10  text-neutral-content">
+      <footer className="p-10 max-w-screen-xl text-neutral-content">
         <div className="flex justify-around items-center">
           <div className="flex-1 bg-[#1F2937] h-[300px] p-24">
             <div>

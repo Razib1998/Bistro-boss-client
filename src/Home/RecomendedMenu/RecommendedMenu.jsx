@@ -9,7 +9,6 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 
 const RecommendedMenu = () => {
- 
   const [menus, setMenus] = useState([]);
 
   useEffect(() => {
@@ -23,7 +22,7 @@ const RecommendedMenu = () => {
 
   return (
     <div>
-      <div className="w-4/12 mx-auto text-center mt-12">
+      <div>
         <SectionTitle
           subHeading={"Should Try"}
           Heading={"Chef Recommends"}
@@ -40,7 +39,7 @@ const RecommendedMenu = () => {
       >
         {menus.map((item) => (
           <SwiperSlide key={item._id}>
-            <div className="my-12">
+            <div className="my-12 h-[500px]">
               <img src={item.image} alt="" />
               <h3 className="text-xl mt-4 font-medium text-center">
                 {item.name}

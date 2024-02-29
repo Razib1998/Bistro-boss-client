@@ -2,14 +2,14 @@ const Footer = () => {
   return (
     <div>
       <footer className="p-10 max-w-screen-xl text-neutral-content">
-        <div className="flex justify-around items-center">
+        <div className="md:flex justify-around items-center">
           <div className="flex-1 bg-[#1F2937] h-[300px] p-24">
             <div>
-              <p className="text-2xl font-bold mb-6 ml-12">Contact Us</p>
-              <p className="text-medium mb-2  ml-6">
+              <p className="md:text-2xl font-bold mb-6 ml-12">Contact Us</p>
+              <p className="md:text-medium mb-2  ml-6">
                 123 ABS Street, Uni 21, Bangladesh
               </p>
-              <p className="text-sm mb-2 ml-16">+88 123456789</p>
+              <p className="md:text-sm mb-2 ml-16">+88 123456789</p>
 
               <p className="text-sm mb-2 ml-8">Mon - Fri: 08:00 - 22:00</p>
               <p className="text-sm ml-8">Mon - Fri: 08:00 - 22:00</p>

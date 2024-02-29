@@ -22,7 +22,7 @@ const Navbar = () => {
             <button>DASHBOARD</button>
           </li>
         </NavLink>
-        <NavLink>
+        <NavLink to={"/our-menu"}>
           <li>
             <button>OUR MENU</button>
           </li>
@@ -49,7 +49,7 @@ const Navbar = () => {
     );
   return (
     <div>
-      <div className="navbar fixed z-10 bg-opacity-30 text-white">
+      <div className="flex gap-44 fixed z-10 bg-opacity-30 text-white">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

@@ -1,52 +1,51 @@
 import { NavLink } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 
-import cart from "../../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png"
+import cart from "../../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png";
 
 const Navbar = () => {
-
-    const links = (
-      <>
-        <NavLink>
-          <li>
-            <button>HOME</button>
-          </li>
-        </NavLink>
-        <NavLink>
-          <li>
-            <button>CONTACT US</button>
-          </li>
-        </NavLink>
-        <NavLink>
-          <li>
-            <button>DASHBOARD</button>
-          </li>
-        </NavLink>
-        <NavLink to={"/our-menu"}>
-          <li>
-            <button>OUR MENU</button>
-          </li>
-        </NavLink>
-        <NavLink>
-          <li>
-            <button>OUR SHOP</button>
-          </li>
-        </NavLink>
+  const links = (
+    <>
+      <NavLink>
         <li>
-          <button>
-            <img className="h-[30px] w-[30px]" src={cart} alt="" />
-          </button>
+          <button>HOME</button>
         </li>
+      </NavLink>
+      <NavLink>
         <li>
-          <button>Sign Out</button>
+          <button>CONTACT US</button>
         </li>
+      </NavLink>
+      <NavLink>
         <li>
-          <button>
-         <CgProfile className="w-[25px] h-[25px]"></CgProfile>
-          </button>
+          <button>DASHBOARD</button>
         </li>
-      </>
-    );
+      </NavLink>
+      <NavLink to={"/our-menu"}>
+        <li>
+          <button>OUR MENU</button>
+        </li>
+      </NavLink>
+      <NavLink to={"/order-food"}>
+        <li>
+          <button>ORDERED FOOD</button>
+        </li>
+      </NavLink>
+      <li>
+        <button>
+          <img className="h-[30px] w-[30px]" src={cart} alt="" />
+        </button>
+      </li>
+      <li>
+        <button>Sign Out</button>
+      </li>
+      <li>
+        <button>
+          <CgProfile className="w-[25px] h-[25px]"></CgProfile>
+        </button>
+      </li>
+    </>
+  );
   return (
     <div>
       <div className="flex gap-44 fixed z-10 bg-opacity-30 text-white">

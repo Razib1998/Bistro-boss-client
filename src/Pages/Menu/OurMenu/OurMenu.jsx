@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Cover from "../../Shared/Cover/Cover";
 import menuImg from "../../../assets/menu/banner3.jpg";
-import dessert from "../../../assets/menu/dessert-bg.jpeg";
+import dessertImg from "../../../assets/menu/dessert-bg.jpeg";
 import soupImg from "../../../assets/menu/soup-bg.jpg";
 import saladImg from "../../../assets/menu/salad-bg.jpg";
 import pizzaImg from "../../../assets/menu/pizza-bg.jpg";
@@ -22,44 +22,27 @@ const OurMenu = () => {
       <Helmet>
         <title>Bistro Boss || Our Menu</title>
       </Helmet>
-      <Cover
-        img={menuImg}
-        title={"our menu"}
-        details={"Would You Like To Try A Dish"}
-      ></Cover>
       <SectionTitle
         Heading={"Today Offer"}
         subHeading={"Don not miss out"}
       ></SectionTitle>
       <MenusCategory items={offered}></MenusCategory>
-      <OrderButton title={"Order Your Favourite Food"}></OrderButton>
-      <Cover
-        img={dessert}
-        title={"Dessert"}
-        details={"Would  you like to Try a dish"}
-      ></Cover>
-      <MenusCategory items={desert}></MenusCategory>
-      <OrderButton title={"Order Your Favourite Food"}></OrderButton>
-      <Cover
-        img={soupImg}
-        title={"Soup"}
-        details={"Would  you like to Try a dish"}
-      ></Cover>
-      <MenusCategory items={soup}></MenusCategory>
-      <Cover
+      <MenusCategory
+        title={"dessert"}
+        img={dessertImg}
+        items={desert}
+      ></MenusCategory>
+      <MenusCategory title={"SOUP"} img={soupImg} items={soup}></MenusCategory>
+      <MenusCategory
+        title={"salad"}
         img={saladImg}
-        title={"Salad"}
-        details={"Would  you like to Try a dish"}
-      ></Cover>
-      <MenusCategory items={salad}></MenusCategory>
-      <OrderButton title={"Order Your Favourite Food"}></OrderButton>
-      <Cover
+        items={salad}
+      ></MenusCategory>
+      <MenusCategory
+        title={"pizza"}
         img={pizzaImg}
-        title={"Pizza"}
-        details={"Would  you like to Try a dish"}
-      ></Cover>
-      <MenusCategory items={pizza}></MenusCategory>
-      <OrderButton title={"Order Your Favourite Food"}></OrderButton>
+        items={pizza}
+      ></MenusCategory>
     </div>
   );
 };

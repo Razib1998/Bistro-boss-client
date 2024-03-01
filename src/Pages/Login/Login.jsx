@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -7,10 +7,15 @@ import {
 import loginImg from "../../assets/others/authentication1.png";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
   const capchaRef = useRef();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  let from = location.state?.from?.pathname || "/";
 
   const { signIn } = useContext(AuthContext);
 
@@ -24,10 +29,36 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    signIn(email, password).then((result) => {
-      const user = result.user;
-      console.log(user);
-    });
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        Swal.fire({
+          title: "User Login Successful",
+          showClass: {
+            popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `,
+          },
+          hideClass: {
+            popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+          },
+        });
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        if (err.message.includes("auth/invalid-credential")) {
+          Swal.fire({
+            title: "Password Wrong!!!",
+            icon: "error",
+          });
+        }
+      });
   };
 
   const capchaValidation = () => {

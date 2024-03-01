@@ -1,8 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/others/authentication2.png";
 import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Register = () => {
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -10,6 +15,40 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    createUser(data.email, data.password)
+      .then((result) => {
+        const LoggedUser = result.user;
+        updateUserProfile(data.name, data.photURL).then(() => {
+          Swal.fire({
+            title: "User Created Successfully",
+            showClass: {
+              popup: `
+                  animate__animated
+                  animate__fadeInUp
+                  animate__faster
+                `,
+            },
+            hideClass: {
+              popup: `
+                  animate__animated
+                  animate__fadeOutDown
+                  animate__faster
+                `,
+            },
+          });
+          navigate("/");
+        });
+
+        console.log("Logged User", LoggedUser);
+      })
+      .catch((err) => {
+        if (err.message.includes("auth/email-already-in-use")) {
+          Swal.fire({
+            title: "Email Already Exists!!!",
+            icon: "error",
+          });
+        }
+      });
     console.log(data);
   };
   return (
@@ -35,6 +74,22 @@ const Register = () => {
                 {errors.name && (
                   <span className="mt-2 text-red-600">
                     Name field is required
+                  </span>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Photo URL</span>
+                </label>
+                <input
+                  type="text"
+                  {...register("photoURL", { required: true })}
+                  placeholder="Photo URL"
+                  className="input input-bordered"
+                />
+                {errors.photoURL && (
+                  <span className="mt-2 text-red-600">
+                    PhotoURL field is required
                   </span>
                 )}
               </div>
@@ -66,13 +121,26 @@ const Register = () => {
                     required: true,
                     minLength: 6,
                     maxLength: 20,
+                    pattern:
+                      /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]/,
                   })}
                   name="password"
                   className="input input-bordered"
                 />
-                {errors.password && (
+                {errors.password?.type === "minLength" && (
                   <span className="mt-2 text-red-600">
                     Password must be at least 6 characters
+                  </span>
+                )}
+                {errors.password?.type === "maxlength" && (
+                  <span className="mt-2 text-red-600">
+                    Password must be less then 20 characters.‚
+                  </span>
+                )}
+                {errors.password?.type === "pattern" && (
+                  <span className="mt-2 text-red-600">
+                    Password must be at least one capital letter, one small
+                    letter, one number and one special character.
                   </span>
                 )}
               </div>

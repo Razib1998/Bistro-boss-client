@@ -2,8 +2,36 @@ import { Link, NavLink } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 
 import cart from "../../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png";
+import { useContext } from "react";
+import { AuthContext } from "../../../Provider/AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
+  const { logOut } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logOut().then(() => {
+      Swal.fire({
+        title: "Logout successful",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `,
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `,
+        },
+      });
+    });
+  };
+
   const links = (
     <>
       <NavLink>
@@ -36,11 +64,20 @@ const Navbar = () => {
           <img className="h-[30px] w-[30px]" src={cart} alt="" />
         </button>
       </li>
-      <Link to={"/login"}>
-        <li>
-          <button>Login</button>
-        </li>
-      </Link>
+      {user?.email ? (
+        <>
+          <div className="mr-[20px] mt-3">
+            <strong>{user?.displayName}</strong>
+          </div>
+          <button onClick={handleLogout} className="btn btn-primary">
+            Logout
+          </button>
+        </>
+      ) : (
+        <Link to={"/login"}>
+          <button className="btn btn-primary">Login</button>
+        </Link>
+      )}
       <li>
         <button>
           <CgProfile className="w-[25px] h-[25px]"></CgProfile>

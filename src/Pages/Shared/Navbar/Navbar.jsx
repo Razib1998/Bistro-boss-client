@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 
 import cart from "../../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png";
@@ -36,9 +36,11 @@ const Navbar = () => {
           <img className="h-[30px] w-[30px]" src={cart} alt="" />
         </button>
       </li>
-      <li>
-        <button>Sign Out</button>
-      </li>
+      <Link to={"/login"}>
+        <li>
+          <button>Login</button>
+        </li>
+      </Link>
       <li>
         <button>
           <CgProfile className="w-[25px] h-[25px]"></CgProfile>

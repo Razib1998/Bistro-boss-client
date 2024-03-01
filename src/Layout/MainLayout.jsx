@@ -5,15 +5,17 @@ import Navbar from "../Pages/Shared/Navbar/Navbar";
 const MainLayout = () => {
   const location = useLocation();
 
-  const isLogin = location.pathname.includes("/login");
+  const noHeaderFooter =
+    location.pathname.includes("/login") ||
+    location.pathname.includes("/register");
 
   return (
     <div>
-      {isLogin || <Navbar></Navbar>}
+      {noHeaderFooter || <Navbar></Navbar>}
       <div className="min-h-screen">
         <Outlet></Outlet>
       </div>
-      {isLogin || <Footer />}
+      {noHeaderFooter || <Footer />}
     </div>
   );
 };

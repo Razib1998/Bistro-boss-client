@@ -5,11 +5,14 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import loginImg from "../../assets/others/authentication1.png";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
   const capchaRef = useRef();
+
+  const { signIn } = useContext(AuthContext);
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -20,7 +23,13 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+
+    signIn(email, password).then((result) => {
+      const user = result.user;
+      console.log(user);
+    });
   };
+
   const capchaValidation = () => {
     const user_capcha = capchaRef.current.value;
     console.log(user_capcha);
@@ -93,7 +102,7 @@ const Login = () => {
               <p>
                 New Here ?
                 <span>
-                  <Link>
+                  <Link to={"/register"}>
                     <button className="btn btn-link ">Register Now</button>
                   </Link>
                 </span>

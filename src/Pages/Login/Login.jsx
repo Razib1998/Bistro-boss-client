@@ -63,7 +63,6 @@ const Login = () => {
 
   const capchaValidation = () => {
     const user_capcha = capchaRef.current.value;
-    console.log(user_capcha);
     if (validateCaptcha(user_capcha)) {
       setDisabled(false);
     } else {

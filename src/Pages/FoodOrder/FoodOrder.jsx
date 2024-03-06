@@ -12,7 +12,7 @@ const FoodOrder = () => {
   const categories = ["salad", "pizza", "soup", "dessert", "drink"];
   const { category } = useParams();
   const initialIndex = categories.indexOf(category);
-  const [index, setIndex] = useState(initialIndex);
+  const [index, setIndex] = useState(0);
   const [menu] = useMenu();
 
   const desert = menu.filter((item) => item.category === "dessert");

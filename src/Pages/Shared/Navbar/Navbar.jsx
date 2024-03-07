@@ -1,14 +1,16 @@
 import { Link, NavLink } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 
-import cart from "../../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png";
 import { useContext } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import { CiShoppingCart } from "react-icons/ci";
+import useCart from "../../../Hooks/useCart";
 
 const Navbar = () => {
   const { user } = useContext(AuthContext);
   const { logOut } = useContext(AuthContext);
+  const [cartItems] = useCart();
 
   const handleLogout = () => {
     logOut().then(() => {
@@ -44,7 +46,7 @@ const Navbar = () => {
           <button>CONTACT US</button>
         </li>
       </NavLink>
-      <NavLink>
+      <NavLink to={"/dashboard"}>
         <li>
           <button>DASHBOARD</button>
         </li>
@@ -59,17 +61,27 @@ const Navbar = () => {
           <button>ORDERED FOOD</button>
         </li>
       </NavLink>
-      <li>
-        <button>
-          <img className="h-[30px] w-[30px]" src={cart} alt="" />
-        </button>
-      </li>
+      <div>
+        <Link to={"/dashboard/cart"}>
+          <div className="relative mt-2 mx-4">
+            <CiShoppingCart className="text-2xl font-black" />
+            <span className="absolute right-[-10px] top-[-10px] h-[15px] w-[15px] rounded-full bg-purple-600 flex justify-center items-center text-xs">
+              {cartItems.length}
+            </span>
+          </div>
+        </Link>
+      </div>
       {user?.email ? (
         <>
-          <div className="mr-[20px] mt-3">
+          <div className="mx-4 mt-3">
             <strong>{user?.displayName}</strong>
           </div>
-          <button onClick={handleLogout} className="btn btn-primary">
+          <div className="mx-4 mt-2">
+            <button>
+              <CgProfile className="w-[25px] h-[25px]"></CgProfile>
+            </button>
+          </div>
+          <button onClick={handleLogout} className="btn btn-primary mx-4">
             Logout
           </button>
         </>
@@ -78,11 +90,7 @@ const Navbar = () => {
           <button className="btn btn-primary">Login</button>
         </Link>
       )}
-      <li>
-        <button>
-          <CgProfile className="w-[25px] h-[25px]"></CgProfile>
-        </button>
-      </li>
+      <li></li>
     </>
   );
   return (

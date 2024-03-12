@@ -8,6 +8,7 @@ import loginImg from "../../assets/others/authentication1.png";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import GoogleLogin from "../Shared/SocialLogin/GoogleLogin";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
@@ -138,6 +139,7 @@ const Login = () => {
                 </span>
               </p>
             </div>
+            <GoogleLogin />
           </div>
         </div>
       </div>

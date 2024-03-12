@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 import { axiosPublic } from "../../Hooks/useAxiosPublic";
+import GoogleLogin from "../Shared/SocialLogin/GoogleLogin";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
@@ -61,7 +62,6 @@ const Register = () => {
           });
         }
       });
-    console.log(data);
   };
   return (
     <div>
@@ -170,6 +170,7 @@ const Register = () => {
                 </span>
               </p>
             </div>
+            <GoogleLogin />
           </div>
         </div>
       </div>

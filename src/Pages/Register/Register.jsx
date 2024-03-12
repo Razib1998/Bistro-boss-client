@@ -27,7 +27,7 @@ const Register = () => {
             name: data.name,
           };
 
-          axiosPublic.post("users", userInfo).then((res) => {
+          axiosPublic.post("/users", userInfo).then((res) => {
             if (res.data.insertedId) {
               reset();
               Swal.fire({

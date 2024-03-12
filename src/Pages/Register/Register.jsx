@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import { axiosPublic } from "../../Hooks/useAxiosPublic";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
@@ -11,6 +12,7 @@ const Register = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -19,24 +21,34 @@ const Register = () => {
       .then((result) => {
         const LoggedUser = result.user;
         updateUserProfile(data.name, data.photURL).then(() => {
-          Swal.fire({
-            title: "User Created Successfully",
-            showClass: {
-              popup: `
-                  animate__animated
-                  animate__fadeInUp
-                  animate__faster
-                `,
-            },
-            hideClass: {
-              popup: `
-                  animate__animated
-                  animate__fadeOutDown
-                  animate__faster
-                `,
-            },
+          const userInfo = {
+            email: data.email,
+            name: data.name,
+          };
+
+          axiosPublic.post("users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              reset();
+              Swal.fire({
+                title: "User Created Successfully",
+                showClass: {
+                  popup: `
+                      animate__animated
+                      animate__fadeInUp
+                      animate__faster
+                    `,
+                },
+                hideClass: {
+                  popup: `
+                      animate__animated
+                      animate__fadeOutDown
+                      animate__faster
+                    `,
+                },
+              });
+              navigate("/");
+            }
           });
-          navigate("/");
         });
 
         console.log("Logged User", LoggedUser);

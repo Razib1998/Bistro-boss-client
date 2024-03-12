@@ -11,7 +11,7 @@ const Cart = () => {
         subHeading="My Cart"
         Heading="Wanna Add More ?"
       ></SectionTitle>
-      <div className="flex justify-evenly mt-8">
+      <div className="flex md:flex justify-evenly mt-8">
         <h2 className="text-3xl font-bold">Total Items: {cartItems.length}</h2>
         <h2 className="text-3xl font-bold">Total Price: ${totalPrice}</h2>
         <button className="btn btn-primary">Pay Now</button>
@@ -20,10 +20,11 @@ const Cart = () => {
         <table className="table">
           {/* head */}
           <thead className="bg-[#D1A054] text-white">
-            <tr>
+            <tr className="">
               <th>#</th>
               <th>Item Image</th>
               <th>Item Name</th>
+              {/* <th>Quantity</th> */}
               <th>Price</th>
               <th>Action</th>
             </tr>
@@ -44,8 +45,8 @@ const Cart = () => {
                     </div>
                   </div>
                 </td>
-                <td>{item.name}</td>
-                <td>$ {item.price}</td>
+                <td className="text-lg text-gray-500">{item.name}</td>
+                <td className="text-lg text-gray-500">$ {item.price}</td>
                 <th>
                   <button className="btn btn-ghost btn-xs">
                     <MdOutlineDelete className="text-2xl text-red-700"></MdOutlineDelete>

@@ -2,9 +2,10 @@ import Swal from "sweetalert2";
 import useCart from "../../../Hooks/useCart";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import { MdOutlineDelete } from "react-icons/md";
-import { axiosSecure } from "../../../Hooks/useAxiosSecure";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const Cart = () => {
+  const axiosSecure = useAxiosSecure();
   const [cartItems, refetch] = useCart();
   const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
   const handleDelete = (id) => {

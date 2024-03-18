@@ -1,11 +1,46 @@
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import { FaUtensils } from "react-icons/fa";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddItem = () => {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
+  const { register, handleSubmit, reset } = useForm();
+  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
+  const onSubmit = async (data) => {
+    const image_file = { image: data.image[0] };
+    const res = await axiosPublic.post(image_hosting_api, image_file, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+    if (res.data.success) {
+      const menusItem = {
+        name: data.name,
+        category: data.category,
+        recipe: data.recipe,
+        price: parseFloat(data.price),
+        image: res.data.data.display_url,
+      };
+      const menusRes = await axiosSecure.post("/menus", menusItem);
+      console.log(menusRes);
+      if (menusRes.data.insertedId) {
+        reset();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `${data.name} has been added in menus`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    }
+    console.log(res.data);
   };
 
   return (
@@ -35,10 +70,11 @@ const AddItem = () => {
                   <span className="label-text">Category*</span>
                 </div>
                 <select
+                  defaultValue={"default"}
                   {...register("category", { required: true })}
                   className="select select-bordered w-full"
                 >
-                  <option disabled selected>
+                  <option disabled value={"default"}>
                     Select a Category
                   </option>
                   <option value={"salad"}>Salad</option>

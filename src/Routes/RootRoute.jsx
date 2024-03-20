@@ -11,6 +11,7 @@ import AllUsers from "../Pages/Dashboard/AllUSers/AllUsers";
 import AddItem from "../Pages/Dashboard/AddItem/AddItem";
 import ManageItem from "../Pages/Dashboard/ManagItem/ManageItem";
 import AdminRoutes from "./AdminRoutes";
+import UpdateItem from "../Pages/Dashboard/UpdateItem/UpdateItem";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,16 @@ const router = createBrowserRouter([
             <ManageItem />
           </AdminRoutes>
         ),
+      },
+      {
+        path: "update/:id",
+        element: (
+          <AdminRoutes>
+            <UpdateItem />
+          </AdminRoutes>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/menus/${params.id}`),
       },
     ],
   },
